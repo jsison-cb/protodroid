@@ -1,4 +1,4 @@
-apply from: "$rootDir/config/library.gradle"
+apply from: "../config/library.gradle"
 
 dependencies {
     implementation 'io.grpc:grpc-protobuf-lite:1.47.0'

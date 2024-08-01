@@ -1,4 +1,4 @@
-apply from: "$rootDir/config/library.gradle"
+apply from: "../config/library.gradle"
 
 dependencies {
     def composeCompilerVersion = "1.5.14"
