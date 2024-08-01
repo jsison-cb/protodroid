@@ -97,7 +97,7 @@ internal class DetailViewModelFactory(
 ) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(repository) as T
         }
