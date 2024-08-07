@@ -1,12 +1,36 @@
+buildscript {
+    apply from: '../config/ext.gradle'
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    group = 'lukasdylan'
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 apply from: "../config/library.gradle"
 
 dependencies {
-    def composeCompilerVersion = "1.5.14"
     def composeUiVersion = "1.6.8"
 
     implementation 'androidx.room:room-ktx:2.4.2'
     implementation 'androidx.room:room-runtime:2.4.2'
-    implementation 'io.grpc:grpc-protobuf-lite:1.47.0'
+    implementation "io.grpc:grpc-protobuf-lite:${project.ext.protobuf_lite}"
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.2'
@@ -14,8 +38,8 @@ dependencies {
     implementation "androidx.compose.material:material:$composeUiVersion"
     implementation "androidx.compose.ui:ui-tooling:$composeUiVersion"
     implementation "androidx.compose.foundation:foundation:$composeUiVersion"
-    implementation "androidx.compose.compiler:compiler:$composeCompilerVersion"
-    api 'androidx.activity:activity-compose:1.4.0'
+    implementation "androidx.compose.compiler:compiler:${project.ext.compose_compiler}"
+    api "androidx.activity:activity-compose:${project.ext.activity_compose}"
     implementation 'androidx.navigation:navigation-compose:2.4.0-alpha06'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
     implementation "com.google.accompanist:accompanist-pager:0.17.0"
@@ -23,5 +47,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.6.1"
 //    ksp "androidx.room:room-compiler:2.6.1" // TODO
     implementation "androidx.appcompat:appcompat:1.3.1"
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation "junit:junit:${project.ext.junit}"
 }

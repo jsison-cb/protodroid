@@ -1,0 +1,9 @@
+ext {
+    kotlin_version = '1.9.24'
+    agp_version = '8.3.2'
+    protobuf_lite = '1.47.0'
+    activity_compose = '1.4.0'
+    compose_compiler = '1.5.14'
+    junit = '4.13.2'
+}
+

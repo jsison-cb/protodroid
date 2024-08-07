@@ -1,8 +1,32 @@
+buildscript {
+    apply from: '../config/ext.gradle'
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    group = 'lukasdylan'
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
 apply from: "../config/library.gradle"
 
 dependencies {
-    implementation 'io.grpc:grpc-protobuf-lite:1.47.0'
-    implementation 'androidx.activity:activity-compose:1.4.0'
-    implementation 'androidx.compose.compiler:compiler:1.5.14'
-    testImplementation 'junit:junit:4.13.2'
+    implementation "io.grpc:grpc-protobuf-lite:${project.ext.protobuf_lite}"
+    implementation "androidx.activity:activity-compose:${project.ext.activity_compose}"
+    implementation "androidx.compose.compiler:compiler:${project.ext.compose_compiler}"
+    testImplementation "junit:junit:${project.ext.junit}"
 }
