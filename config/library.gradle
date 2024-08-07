@@ -5,14 +5,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "34"
+    namespace 'id.lukasdylan.grpc.protodroid'
+
+    compileSdk 34
+
     defaultConfig {
         minSdkVersion 26
-        targetSdkVersion 34
         versionCode 0 // not relevant, we're not releasing anyway
         versionName '1.0.0'
     }
+
     buildTypes {
         release {
             minifyEnabled false
