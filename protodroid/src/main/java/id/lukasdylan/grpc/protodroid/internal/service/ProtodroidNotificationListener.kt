@@ -1,11 +1,14 @@
 package id.lukasdylan.grpc.protodroid.internal.service
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
@@ -21,8 +24,6 @@ internal interface ProtodroidNotificationListener {
 
 internal class ProtodroidNotificationListenerImpl(private val context: Context) :
     ProtodroidNotificationListener {
-
-    private val notificationIdMap = mutableListOf<String>()
 
     override fun sendNotification(
         title: String,
@@ -43,7 +44,7 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
         }
 
         val intent = Intent(Intent.ACTION_VIEW, DetailScreen.deeplink(dataId.toString()).toUri()).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
         val flag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -65,23 +66,21 @@ internal class ProtodroidNotificationListenerImpl(private val context: Context) 
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
             .setSilent(true)
+            .setAutoCancel(true)
             .build()
 
         val notificationId = getNotificationIdByServiceName(serviceName)
-        notificationManager.cancel(notificationId) // cancel previous notification
+
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return
+        }
         notificationManager.notify(notificationId, builder)
     }
 
-    private fun getNotificationIdByServiceName(serviceName: String): Int {
-        // only populate service names to list of string, then use it's index as notification ID
-        val currentId = notificationIdMap.indexOf(serviceName)
-        return if (currentId == -1) {
-            notificationIdMap.add(serviceName)
-            notificationIdMap.lastIndex
-        } else {
-            currentId
-        }
-    }
+    private fun getNotificationIdByServiceName(serviceName: String): Int  = 1337
 }

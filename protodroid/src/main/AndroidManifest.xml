@@ -1,14 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application>
 
         <activity
             android:name=".internal.ui.ProtodroidActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
+            android:taskAffinity=".ProtodroidActivity"
             android:theme="@style/protodroid_AppTheme">
 
             <intent-filter>
